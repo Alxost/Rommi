@@ -1,4 +1,4 @@
-package org.example;
+package org.rommi;
 
 public class Main {
     public static void main(String[] args){

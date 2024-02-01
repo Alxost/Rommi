@@ -1,4 +1,4 @@
-package org.example;
+package org.rommi;
 
 import java.awt.*;
 import java.util.ArrayList;
