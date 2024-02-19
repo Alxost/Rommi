@@ -3,12 +3,16 @@ package org.rommi;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public class CardDeck {
     private int numCardsUsed;
     private final ArrayList<Card> cards;
+
     public CardDeck(){
         int numValues = 13;
-        Color[] colors = {Color.BLACK, Color.BLUE, Color.RED, Color.ORANGE, Color.YELLOW};
+        Color[] colors = {Color.BLACK, Color.BLUE, Color.RED, Color.ORANGE, Color.GREEN};
         int deckSize = colors.length * numValues * 2;
         numCardsUsed = 0;
         cards = new ArrayList<>();

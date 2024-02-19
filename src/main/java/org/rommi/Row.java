@@ -31,4 +31,5 @@ public class Row {
         rowContent.addAll(cards);
         Collections.sort(rowContent);
     }
+    public int getSize(){return rowContent.size();}
 }

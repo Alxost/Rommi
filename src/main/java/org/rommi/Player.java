@@ -19,6 +19,7 @@ public class Player {
     public Row getHand(){
         return hand;
     }
+    public int getNumCards(){return hand.getSize();}
     public void addCard(Card card){
         hand.addCard(card);
     }

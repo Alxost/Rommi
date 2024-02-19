@@ -1,6 +1,10 @@
 package org.rommi;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Gui {
@@ -9,32 +13,46 @@ public class Gui {
     MoveListener moveListener;
     JPanel playerPanel;
     JPanel fieldPanel;
+
+    JFrame frame;
+    int frame_width = 900;
+    int frame_height = 900;
+    int card_height = 65;
+    int card_width = 65;
+    int toolbar_height = 90;
     Gui(GameController gameController) {
         this.gameController = gameController;
         this.moveListener = new MoveListener();
+        this.frame = new JFrame();
+        this.frame.setLayout(new BorderLayout());
+        this.frame.setSize(new Dimension(frame_width,frame_height));
     }
     public void drawGameState(){
-        JFrame frame = new JFrame();
-        frame.setSize(new Dimension(700,700));
-        JPanel mainPanel = createMainPanel();
-        frame.add(mainPanel);
+        fieldPanel = createFieldPanel(gameController.getPlayedRows());
+        playerPanel = createPlayerPanel(gameController.getActivePlayer());
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(fieldPanel, BorderLayout.NORTH);
+        frame.add(playerPanel, BorderLayout.SOUTH);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
     public JButton createCardButton(Card card, Row sourceRow){
-        JButton cardButton = new JButton(Integer.toString(card.getValue()));
-        cardButton.setForeground(card.getColor());
+        JButton  cardButton = new JButton(new ImageIcon(card.getCardImage()));
+        cardButton.setBorderPainted(false);
+        cardButton.setFocusPainted(false);
+        cardButton.setContentAreaFilled(false);
         cardButton.addActionListener(e -> {moveListener.setSelectedCard(card);
         moveListener.setSourceRow(sourceRow);});
-        cardButton.setPreferredSize(new Dimension(30,40));
+        cardButton.setPreferredSize(new Dimension(card_width,card_height));
         return cardButton;
     }
     public JPanel createRowPanel(Row row){
         JPanel rowPanel = new JPanel();
         if (row.getIsHand()) {
-            //rowPanel.setLayout(new BoxLayout(rowPanel, BoxLayout.LINE_AXIS));
-            rowPanel.setLayout(new FlowLayout());
+            rowPanel.setLayout(new GridLayout(2,7));
+            rowPanel.setPreferredSize(new Dimension(frame_width, card_height*3));
         }
         for (Card card: row.getRowContent()){
             JButton cardButton = createCardButton(card, row);
@@ -46,8 +64,8 @@ public class Gui {
         return rowPanel;
     }
     public JPanel createPlayerPanel(Player activePlayer){
-        JPanel playerPanel = new JPanel(new GridLayout(2,1));
-        playerPanel.setPreferredSize(new Dimension(500,10));
+        JPanel playerPanel = new JPanel();
+        playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.PAGE_AXIS));
         JPanel rowPanel = createRowPanel(activePlayer.getHand());
         playerPanel.add(rowPanel);
         JPanel infoPanel = createPlayerInfoPanel(activePlayer);
@@ -65,18 +83,9 @@ public class Gui {
         fieldPanel.add(newRowButton);
         return fieldPanel;
     }
-    public JPanel createMainPanel(){
-        JPanel mainPanel = new JPanel(new GridLayout(2,1));
-        playerPanel = createPlayerPanel(gameController.getActivePlayer());
-        fieldPanel = createFieldPanel(gameController.getPlayedRows());
-        mainPanel.add(fieldPanel);
-        mainPanel.add(playerPanel);
-        return mainPanel;
-    }
     public JPanel createPlayerInfoPanel(Player activePlayer){
         //JPanel infoPanel =  new JPanel(new GridLayout(1,2));
-        JPanel infoPanel = new JPanel(new FlowLayout());
-        infoPanel.setPreferredSize(new Dimension(500,50));
+        JPanel infoPanel = new JPanel();
         JButton name = createNameButton(activePlayer);
         infoPanel.add(name);
         JButton drawCardButton = createDrawCardButton(activePlayer);
@@ -95,42 +104,29 @@ public class Gui {
     }
     public JButton createNameButton(Player activePlayer){
         JButton nameButton = new JButton(activePlayer.getName());
-        nameButton.setPreferredSize(new Dimension(90,30));
+        nameButton.setPreferredSize(new Dimension(150,toolbar_height));
         return nameButton;
     }
     public JButton createDrawCardButton(Player activePlayer){
         JButton drawCardButton = new JButton("Draw Card");
         drawCardButton.setForeground(Color.BLACK);
-        drawCardButton.setPreferredSize(new Dimension(90,30));
+        drawCardButton.setPreferredSize(new Dimension(150,toolbar_height));
         drawCardButton.addActionListener(e -> gameController.drawCard(activePlayer));
         return drawCardButton;
     }
     public JButton createNewRowButton(){
         JButton newRowButton = new JButton("create new Row");
         newRowButton.setForeground(Color.MAGENTA);
-        newRowButton.addActionListener(e -> {gameController.createNewRow();});
+        newRowButton.addActionListener(e -> gameController.createNewRow());
         return newRowButton;
 
     }
     public JButton createNextButton(){
         JButton nextButton = new JButton("next");
         nextButton.setForeground(Color.MAGENTA);
-        nextButton.setPreferredSize(new Dimension(90,30));
-        nextButton.addActionListener(e -> {gameController.nextPlayer();});
+        nextButton.setPreferredSize(new Dimension(150,toolbar_height));
+        nextButton.addActionListener(e -> gameController.nextPlayer());
         return nextButton;
     }
-    public void updatePlayerPanel(){
-        playerPanel = createPlayerPanel(gameController.getActivePlayer());
-        playerPanel.revalidate();
-        playerPanel.repaint();
-    }
-    public void updateFieldPanel(){
-        fieldPanel = createFieldPanel(gameController.getPlayedRows());
-        fieldPanel.revalidate();
-        fieldPanel.repaint();
 
-    }
-    public void updateMainPanel(){
-
-    }
 }
