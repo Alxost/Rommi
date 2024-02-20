@@ -6,7 +6,7 @@ public class RommiRobot {
     RommiRobot(GameController gameController){
         this.gameController = gameController;
     }
-    public void move(RummyGame rummyGame){
-        Move move;
+    public void move(){
+        gameController.nextPlayer();
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class GameController {
     private final RummyGame rummyGame;
     private final PlayerConfig playerConfig;
-    //private final RommiRobot bot;
+    private final RommiRobot bot;
     private int activePlayerIndex = 1;
     Gui2 gui;
 
@@ -12,11 +12,11 @@ public class GameController {
     GameController(){
         playerConfig = new PlayerConfig(5);
         rummyGame = new RummyGame(playerConfig);
-        //RommiRobot bot  = RommiRobot();
+        bot  = new RommiRobot(this);
         drawStartingHands(rummyGame);
         createRandomRow();
         createRandomRow();
-        gui = new Gui2(this);
+        this.gui = new Gui2(this);
     }
 
     public void drawStartingHands(RummyGame rummyGame){
@@ -37,9 +37,7 @@ public class GameController {
         else{
             activePlayerIndex++;
         }
-        //if(getActivePlayer().getIsBot()){
-        //    bot.move(rummyGame);
-        //}
+        gui.update(this);
     }
     public void executeMove(Move move){
         move.sourceRow.removeCard(move.card);
@@ -53,6 +51,7 @@ public class GameController {
     public void createNewRow(){
         Row newRow = new Row(false);
         rummyGame.addRow(newRow);
+        gui.update(this);
     }
     public void drawCard(Player player){
         player.addCard(rummyGame.getCardDeck().drawCard());
