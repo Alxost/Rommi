@@ -12,7 +12,7 @@ public class GameController {
     GameController(){
         playerConfig = new PlayerConfig(5);
         rummyGame = new RummyGame(playerConfig);
-        bot  = new RommiRobot(this);
+        bot  = new RommiRobot(this, rummyGame);
         drawStartingHands(rummyGame);
         createRandomRow();
         createRandomRow();
@@ -62,5 +62,9 @@ public class GameController {
         Row newRow = new Row(false);
         newRow.addCards(rummyGame.getCardDeck().drawCards(4));
         rummyGame.addRow(newRow);
+    }
+    public void botMove(){
+        bot.move();
+        gui.update(this);
     }
 }

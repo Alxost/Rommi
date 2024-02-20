@@ -26,6 +26,11 @@ public class Gui2 {
 
 
     Gui2(GameController gameController){
+        try {
+            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         this.gameController = gameController;
         toolbarPanel = createToolbarPanel(gameController.getActivePlayer());
         playerPanel = createPlayerPanel(gameController.getActivePlayer());
@@ -40,7 +45,6 @@ public class Gui2 {
         frame.add(toolbarPanel, BorderLayout.SOUTH);
         //frame.pack();
         frame.setSize(boardWidth, boardHeight);
-
     }
     public JPanel createToolbarPanel(Player activePlayer){
         JPanel toolbarPanel = new JPanel();
@@ -57,8 +61,11 @@ public class Gui2 {
             JButton nameButton = new JButton(activePlayer.getName());
             nameButton.setBackground(toolBarButtonColor);
             nameButton.setForeground(textColorButton);
-            nameButton.addActionListener(e->gameController.nextPlayer());
+            nameButton.setOpaque(true);
+            nameButton.setBorderPainted(false);
+            nameButton.addActionListener(e-> gameController.botMove());
             botPanel.add(nameButton);
+            botPanel.add(nextButton);
             return botPanel;
         }
         return toolbarPanel;
@@ -67,6 +74,8 @@ public class Gui2 {
         JButton drawButton = new JButton("Draw Card");
         drawButton.setBackground(toolBarButtonColor);
         drawButton.setForeground(textColorButton);
+        drawButton.setOpaque(true);
+        drawButton.setBorderPainted(false);
         drawButton.addActionListener(e->gameController.drawCard(gameController.getActivePlayer()));
         return drawButton;
     }
@@ -74,6 +83,8 @@ public class Gui2 {
         JButton nextButton = new JButton("Next");
         nextButton.setBackground(toolBarButtonColor);
         nextButton.setForeground(textColorButton);
+        nextButton.setOpaque(true);
+        nextButton.setBorderPainted(false);
         nextButton.addActionListener(e->{gameController.nextPlayer();});
         return nextButton;
     }
@@ -81,6 +92,8 @@ public class Gui2 {
         JButton newRowButton  = new JButton("Create new Row");
         newRowButton.setBackground(toolBarButtonColor);
         newRowButton.setForeground(textColorButton);
+        newRowButton.setOpaque(true);
+        newRowButton.setBorderPainted(false);
         newRowButton.addActionListener(e->{gameController.createNewRow();});
         return newRowButton;
     }
@@ -105,6 +118,7 @@ public class Gui2 {
         cardButton.setOpaque(true);
         cardButton.setPreferredSize(new Dimension(cardWidth,cardHeight));
         cardButton.setMargin(new Insets(0, 0, 0, 0));
+        cardButton.setBorderPainted(false);
         //cardButton.setFont(new Font("Arial", Font.PLAIN, 12));
         return cardButton;
     }
@@ -118,10 +132,13 @@ public class Gui2 {
     }
     public JButton createAddCardButton(Row targetRow){
         JButton addCardButton= new JButton("+");
+        addCardButton.setPreferredSize(new Dimension(cardWidth,cardHeight));
         addCardButton.setMargin(new Insets(0, 0, 0, 0));
         addCardButton.setBackground(toolBarButtonColor);
         addCardButton.setForeground(textColorButton);
-        addCardButton.setPreferredSize(new Dimension(cardWidth,cardHeight));
+        addCardButton.setOpaque(true);
+        addCardButton.setBorderPainted(false);
+        //addCardButton.setMargin(new Insets(0, 0, 0, 0));
         addCardButton.addActionListener(e->{
             moveListener.setTargetRow(targetRow);
             gameController.executeMove(moveListener.makeMove());});
