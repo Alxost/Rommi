@@ -85,7 +85,7 @@ public class Gui2 {
         nextButton.setForeground(textColorButton);
         nextButton.setOpaque(true);
         nextButton.setBorderPainted(false);
-        nextButton.addActionListener(e->{gameController.nextPlayer();});
+        nextButton.addActionListener(e->gameController.nextPlayer());
         return nextButton;
     }
     public JButton createNewRowButton(){
@@ -151,7 +151,8 @@ public class Gui2 {
         for (Card card: activePlayer.getHand().getRowContent()){
             JButton cardButton;
             if(activePlayer.getIsBot()){
-                cardButton = createCardDummy();
+                //cardButton = createCardDummy();
+                cardButton = createCardButton(card, activePlayer.getHand());
             }
             else{
                 cardButton = createCardButton(card, activePlayer.getHand());
@@ -169,7 +170,7 @@ public class Gui2 {
         gamePanel.setBackground(gamePanelColor);
         for (Row row: playedRows){
             JPanel rowPanel = new JPanel();
-            rowPanel.setBackground(gamePanelColor);;
+            rowPanel.setBackground(gamePanelColor);
             for (Card card: row.getRowContent()){
                 rowPanel.add(createCardButton(card, row));
             }
@@ -201,12 +202,12 @@ public class Gui2 {
         frame.repaint();
     }
     public void update(GameController gameController){
-        System.out.println(gameController.getActivePlayer().getName());
-        System.out.println(gameController.getActivePlayer().getIsBot());
         frame.getContentPane().removeAll();
-        //frame.remove(gamePanel);
-        //frame.remove(playerPanel);
-        //frame.remove(toolbarPanel);
+        if(gameController.getActivePlayer().getNumCards() == 0){
+            frame.add(new JFormattedTextField("Game Over"));
+            frame.revalidate();
+            frame.repaint();
+        }
         playerPanel = createPlayerPanel(gameController.getActivePlayer());
         gamePanel = createGamePanel(gameController.getPlayedRows());
         toolbarPanel = createToolbarPanel(gameController.getActivePlayer());

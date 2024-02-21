@@ -4,19 +4,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Row {
-    private ArrayList<Card> rowContent;
+    private final ArrayList<Card> rowContent;
     private final boolean isHand;
     private int rowSum;
-    //public Row(ArrayList<Card> cards, boolean isHand){
-    //    rowContent = new ArrayList<>();
-    //    rowContent.addAll(cards);
-    //    isHand = isHand;
-    // }
+    public Row(ArrayList<Card> cards, boolean isHand){
+        rowContent = new ArrayList<>();
+        rowContent.addAll(cards);
+        Collections.sort(rowContent);
+        this.isHand = isHand;
+        rowSum = 0;
+        for(Card card: cards){
+            rowSum += card.getValue();
+        }
+    }
     public Row(boolean isHand){
         rowContent = new ArrayList<>();
         this.isHand = isHand;
         rowSum = 0;
     }
+
     public Card getCardByIndex(int index){
         return rowContent.get(index);
     }
@@ -24,7 +30,7 @@ public class Row {
         return rowContent;
     }
     public void removeCard(Card card){rowContent.remove(card);}
-    public boolean getIsHand(){return isHand;};
+    public boolean getIsHand(){return isHand;}
     public void addCard(Card card){
         rowContent.add(card);
         rowSum += card.getValue();
@@ -39,4 +45,13 @@ public class Row {
     }
     public int getSize(){return rowContent.size();}
     public int getRowSum(){return rowSum;}
+    @Override
+    public String toString(){
+        StringBuilder rowDisplay = new StringBuilder();
+        for (Card card: rowContent){
+            rowDisplay.append(card.toString());
+            rowDisplay.append(" ");
+        }
+        return rowDisplay.toString();
+    }
 }

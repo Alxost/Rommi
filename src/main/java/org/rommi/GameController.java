@@ -14,8 +14,6 @@ public class GameController {
         rummyGame = new RummyGame(playerConfig);
         bot  = new RommiRobot(this, rummyGame);
         drawStartingHands(rummyGame);
-        createRandomRow();
-        createRandomRow();
         this.gui = new Gui2(this);
     }
 
@@ -51,6 +49,10 @@ public class GameController {
     public void createNewRow(){
         Row newRow = new Row(false);
         rummyGame.addRow(newRow);
+        gui.update(this);
+    }
+    public void createNewRow(Row row){
+        rummyGame.addRow(row);
         gui.update(this);
     }
     public void drawCard(Player player){

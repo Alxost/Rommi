@@ -9,14 +9,14 @@ public class RuleChecker {
         return isEqualValueRow(row) || isConsecutiveRow(row);
     }
     public boolean matchingColorRow(Row row){
-        Color firstColor = row.getRowContent().get(0).getColor();
-        return row.getRowContent().stream().allMatch(x-> x.getColor().equals(firstColor));
+        Card firstCard = row.getRowContent().get(0);
+        return row.getRowContent().stream().allMatch(x-> x.getColor().equals(firstCard.getColor()));
     }
     public boolean isConsecutiveRow(Row row){
         for(int i= 0; i< row.getSize()-1;i++){
-            if(row.getRowContent().get(i).getValue() != row.getRowContent().get(i+1).getValue()){
+            if(row.getRowContent().get(i).getValue() != row.getRowContent().get(i+1).getValue()-1){
                 return false;
-            };
+            }
         }
         return matchingColorRow(row);
     }
@@ -27,6 +27,11 @@ public class RuleChecker {
     }
     public boolean noEqualColors(Row row){
         Set<Color> colors = row.getRowContent().stream().map(Card::getColor).collect(Collectors.toSet());
-        return colors.size()==1;
+        return colors.size()==row.getSize();
+    }
+    public boolean isValidAddition(Card card, Row row){
+        Row newRow = new Row(row.getRowContent(),false);
+        newRow.addCard(card);
+        return validateRow(newRow);
     }
 }

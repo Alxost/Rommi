@@ -3,10 +3,7 @@ package org.rommi;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferDouble;
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -48,6 +45,10 @@ public class Card implements Comparable<Card>{
     public int compareTo(Card otherCard) {
         //return getValue().compareTo(otherCard.getValue());
         return Integer.compare(getValue(), otherCard.getValue());
+    }
+    @Override
+    public String toString(){
+        return value + " " + colorMap.get(color);
     }
     void display() {
         System.out.println("Number: " + value);
