@@ -1,15 +1,17 @@
 package org.rommi;
 
+import java.util.ArrayList;
+
 public class Move {
 
     final Row sourceRow;
     final Row targetRow;
-    final Card card;
+    final ArrayList<Card> cards;
 
-    Move(Card card, Row sourceRow, Row targetRow){
+    Move(ArrayList<Card> cards, Row sourceRow, Row targetRow){
         this.sourceRow = sourceRow;
         this.targetRow = targetRow;
-        this.card  = card;
+        this.cards  = cards;
     }
 
     public Row getSourceRow() {
@@ -20,7 +22,7 @@ public class Move {
         return targetRow;
     }
 
-    public Card getCard() {
-        return card;
+    public ArrayList<Card> getCards() {
+        return cards;
     }
 }

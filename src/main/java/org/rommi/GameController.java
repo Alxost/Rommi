@@ -1,29 +1,31 @@
 package org.rommi;
 import java.util.ArrayList;
+import org.rommi.gui.Gui;
+
 
 public class GameController {
     private final RummyGame rummyGame;
     private final PlayerConfig playerConfig;
     private final RommiRobot bot;
     private int activePlayerIndex = 1;
-    Gui2 gui;
+    Gui gui;
 
 
-    GameController(){
-        playerConfig = new PlayerConfig(5);
-        rummyGame = new RummyGame(playerConfig);
-        bot  = new RommiRobot(this, rummyGame);
-        drawStartingHands(rummyGame);
-        this.gui = new Gui2(this);
+    public GameController(){
+        this.playerConfig = new PlayerConfig(5);
+        this.rummyGame = new RummyGame(playerConfig);
+        this.gui = new Gui(this);
+        this.bot  = new RommiRobot(this, rummyGame);
     }
 
     public void drawStartingHands(RummyGame rummyGame){
         for (Player player : rummyGame.getPlayerList()){
-            drawStartingHand(player, rummyGame.getCardDeck());
+            for(int i = 0; i<14;i++){
+                Card drawnCard = rummyGame.getCardDeck().drawCard();
+                player.addCard(drawnCard);
+                drawnCard.setOwner(player.getHand());
+            }
         }
-    }
-    public void drawStartingHand(Player player, CardDeck cardDeck){
-        player.addCards(cardDeck.drawCards(14));
     }
     public Player getActivePlayer(){
         return rummyGame.getPlayerByIndex(activePlayerIndex-1);
@@ -35,12 +37,15 @@ public class GameController {
         else{
             activePlayerIndex++;
         }
-        gui.update(this);
+        gui.update();
     }
     public void executeMove(Move move){
-        move.sourceRow.removeCard(move.card);
-        move.targetRow.addCard(move.card);
-        gui.update(this);
+        for(Card card: move.getCards()){
+            card.getOwner().getRowContent().remove(card);
+            move.targetRow.addCard(card);
+            card.setOwner(move.targetRow);
+        }
+        gui.update();
     }
     public ArrayList<Row> getPlayedRows(){
         return rummyGame.getPlayedRows();
@@ -49,24 +54,45 @@ public class GameController {
     public void createNewRow(){
         Row newRow = new Row(false);
         rummyGame.addRow(newRow);
-        gui.update(this);
+        gui.update();
     }
-    public void createNewRow(Row row){
-        rummyGame.addRow(row);
-        gui.update(this);
-    }
-    public void drawCard(Player player){
-        player.addCard(rummyGame.getCardDeck().drawCard());
-        nextPlayer();
-        gui.update(this);
-    }
-    public void createRandomRow(){
+    public void createNewRow(ArrayList<Card> cardsToAdd){
         Row newRow = new Row(false);
-        newRow.addCards(rummyGame.getCardDeck().drawCards(4));
+        for(Card card: cardsToAdd){
+            card.getOwner().getRowContent().remove(card);
+            if(card.getOwner().getRowContent().isEmpty() && !card.getOwner().getIsHand()){
+                rummyGame.getPlayedRows().remove(card.getOwner());
+            }
+            newRow.addCard(card);
+            card.setOwner(newRow);
+        }
         rummyGame.addRow(newRow);
+        gui.update();
+    }
+    public void drawCards(int numCards, Player player){
+        for(int i = 0; i<numCards;i++){
+            Card drawnCard = rummyGame.getCardDeck().drawCard();
+            player.addCard(drawnCard);
+            drawnCard.setOwner(player.getHand());
+        }
+        nextPlayer();
+        gui.update();
     }
     public void botMove(){
         bot.move();
-        gui.update(this);
+        gui.update();
+    }
+    public MoveListener getMoveListener(){
+        if (gui == null){
+            return null;
+        }
+        return gui.getMoveListener();
+    }
+    public void start(){
+        drawStartingHands(rummyGame);
+        gui.createGui();
+    }
+    public void updateGui(){
+        gui.update();
     }
 }

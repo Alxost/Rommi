@@ -1,8 +1,16 @@
 package org.rommi;
 
+import org.rommi.gui.Gui;
+
+import java.awt.*;
+
 public class Main {
     public static void main(String[] args){
-        PlayerConfig config = new PlayerConfig(4);
         GameController gc  = new GameController();
+        Runnable runnable = new Runnable() {
+            public void run() {
+            gc.start();            }
+        };
+        EventQueue.invokeLater(runnable);
     }
 }

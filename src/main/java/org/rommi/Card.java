@@ -10,26 +10,24 @@ import java.util.Map;
 public class Card implements Comparable<Card>{
     private final Color color;
     private final int value;
-    private final BufferedImage cardImage;
+    private Row owner;
+    static final Color blackCardColor = new Color(0,0,0);
+    static final Color blueCardColor = new Color(85,234,212);
+    static final Color redCardColor = new Color(197,0,60);
+    static final Color yellowCardColor = new Color(243,230,0);
 
-    static Map<Color, String> colorMap = Map.ofEntries(Map.entry(Color.RED, "red"),
-            Map.entry(Color.BLUE, "blue"),
-            Map.entry(Color.BLACK, "black"),
-            Map.entry(Color.GREEN, "green"),
-            Map.entry(Color.ORANGE, "orange")
+    static Map<Color, String> colorMap = Map.ofEntries(Map.entry(redCardColor, "red"),
+            Map.entry(blueCardColor, "blue"),
+            Map.entry(blackCardColor, "black"),
+            //Map.entry(Color.GREEN, "green")
+            Map.entry(yellowCardColor, "yellow")
             );
 
     //private final BufferedImage cardImage;
-    Card(int value, Color color){
+    Card(int value, Color color, Row owner){
         this.value = value;
         this.color = color;
-        String path = "/CardImages/small_crop_%d%s_nobg.png".formatted(value,colorMap.get(color));
-        try {
-            cardImage = ImageIO.read(Card.class.getResource(path));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        this.owner = owner;
     }
 
     public int getValue() {
@@ -40,7 +38,8 @@ public class Card implements Comparable<Card>{
         return color;
     }
 
-
+    public Row getOwner(){return owner;}
+    public void setOwner(Row row){owner = row;}
     @Override
     public int compareTo(Card otherCard) {
         //return getValue().compareTo(otherCard.getValue());
@@ -53,8 +52,5 @@ public class Card implements Comparable<Card>{
     void display() {
         System.out.println("Number: " + value);
         System.out.println("Color: " + color);
-    }
-    public BufferedImage getCardImage(){
-        return cardImage;
     }
 }

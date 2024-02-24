@@ -16,14 +16,11 @@ public class RommiRobot {
         this.ruleChecker = new RuleChecker();
     }
     public void move(){
-        //gameController.createRandomRow();
         boolean madeMove = false;
         ArrayList<Row> possibleRows = calcValidRows();
         if (!possibleRows.isEmpty()){
             Row rowToPlay = possibleRows.getFirst();
-            for(Card card: rowToPlay.getRowContent()){
-                gameController.getActivePlayer().getHand().removeCard(card);}
-            gameController.createNewRow(rowToPlay);
+            gameController.createNewRow(rowToPlay.getRowContent());
             out = true;
             madeMove = true;
         }
@@ -31,7 +28,7 @@ public class RommiRobot {
             madeMove = addCardsToExistingRows();
         }
         if(!madeMove){
-            gameController.drawCard(gameController.getActivePlayer());
+            gameController.drawCards(1,gameController.getActivePlayer());
         }
     }
 
@@ -40,6 +37,7 @@ public class RommiRobot {
             for(Row row : gameController.getPlayedRows()){
                 if (ruleChecker.isValidAddition(card, row)){
                     row.addCard(card);
+                    card.setOwner(row);
                     gameController.getActivePlayer().getHand().removeCard(card);
                     addCardsToExistingRows();
                     return true;
