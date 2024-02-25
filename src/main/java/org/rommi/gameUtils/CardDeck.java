@@ -1,4 +1,6 @@
-package org.rommi;
+package org.rommi.gameUtils;
+
+import org.rommi.gameUtils.Card;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -1,5 +1,10 @@
 package org.rommi;
 
+import org.rommi.gameUtils.Card;
+import org.rommi.gameUtils.RommiGame;
+import org.rommi.gameUtils.Row;
+import org.rommi.gameUtils.RuleChecker;
+
 import java.util.ArrayList;
 
 public class RommiRobot {

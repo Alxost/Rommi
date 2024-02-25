@@ -1,6 +1,6 @@
 package org.rommi.gui;
 
-import org.rommi.Card;
+import org.rommi.gameUtils.Card;
 import org.rommi.MoveListener;
 import org.rommi.Player;
 

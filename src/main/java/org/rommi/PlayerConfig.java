@@ -18,5 +18,7 @@ public class PlayerConfig {
     public int getNumPlayers() {
         return playerList.size();
     }
-
+    public ArrayList<Player> getPlayerList(){
+        return playerList;
+    }
 }

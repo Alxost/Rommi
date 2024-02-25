@@ -1,6 +1,7 @@
 package org.rommi.gui;
 
 import org.rommi.*;
+import org.rommi.gameUtils.Card;
 
 import javax.swing.*;
 import java.awt.*;

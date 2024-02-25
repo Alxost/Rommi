@@ -1,4 +1,7 @@
-package org.rommi;
+package org.rommi.gameUtils;
+
+import org.rommi.gameUtils.Card;
+import org.rommi.gameUtils.Row;
 
 import java.util.ArrayList;
 

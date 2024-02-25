@@ -1,4 +1,4 @@
-package org.rommi;
+package org.rommi.gameUtils;
 
 import java.awt.*;
 import java.util.Map;
@@ -16,12 +16,10 @@ public class Card implements Comparable<Card>{
     static Map<Color, String> colorMap = Map.ofEntries(Map.entry(redCardColor, "red"),
             Map.entry(blueCardColor, "blue"),
             Map.entry(blackCardColor, "black"),
-            //Map.entry(Color.GREEN, "green")
             Map.entry(yellowCardColor, "yellow")
             );
 
-    //private final BufferedImage cardImage;
-    Card(int value, Color color, Row owner){
+    public Card(int value, Color color, Row owner){
         this.value = value;
         this.color = color;
         this.owner = owner;

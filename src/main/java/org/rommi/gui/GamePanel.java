@@ -1,7 +1,7 @@
 package org.rommi.gui;
 
 import org.rommi.MoveListener;
-import org.rommi.Row;
+import org.rommi.gameUtils.Row;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,9 @@
-package org.rommi;
+package org.rommi.gameUtils;
+
+import org.rommi.Player;
+import org.rommi.PlayerConfig;
+import org.rommi.gameUtils.CardDeck;
+import org.rommi.gameUtils.Row;
 
 import java.util.ArrayList;
 
@@ -9,7 +14,7 @@ public class RommiGame {
     private final ArrayList<Row> playedRows;
 
     public RommiGame(PlayerConfig playerConfig){
-        playerList  = playerConfig.playerList;
+        playerList  = playerConfig.getPlayerList();
         cardDeck = new CardDeck();
         playedRows = new ArrayList<>();
     }

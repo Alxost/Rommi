@@ -1,5 +1,9 @@
 package org.rommi;
 
+import org.rommi.gameUtils.Card;
+import org.rommi.gameUtils.Move;
+import org.rommi.gameUtils.Row;
+
 import java.util.ArrayList;
 
 public class MoveListener {
