@@ -5,7 +5,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RuleChecker {
-    public boolean validateRow(Row row){
+    public boolean validateRow(Row row, boolean minSize){
+            if(minSize && row.getRowContent().size() < 3){return false;}
         return isEqualValueRow(row) || isConsecutiveRow(row);
     }
     public boolean matchingColorRow(Row row){
@@ -30,8 +31,11 @@ public class RuleChecker {
         return colors.size()==row.getSize();
     }
     public boolean isValidAddition(Card card, Row row){
+        if(row.getRowContent().isEmpty()){
+            return true;
+        }
         Row newRow = new Row(row.getRowContent(),false);
         newRow.addCard(card);
-        return validateRow(newRow);
+        return validateRow(newRow,false);
     }
 }

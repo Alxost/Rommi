@@ -12,24 +12,24 @@ public class RowPanel {
         rowPanel = new JPanel();
         rowPanel.setBackground(gamePanelColor);
         for (Card card: row.getRowContent()){
-            CardButton cardButton = new CardButton(card, moveListener);
-            rowPanel.add(cardButton.getCardButton());
+            CardButton cardButton = new CardButton();
+            rowPanel.add(cardButton.getDefaultCardButton(card, moveListener));
         }
-        AddCardButton addCardButton = new AddCardButton(row, moveListener){};
-        rowPanel.add(addCardButton.getAddCardButton());
+        AddCardButton addCardButton = new AddCardButton(){};
+        rowPanel.add(addCardButton.getAddCardButtonRow(row, moveListener));
         for (int numCards = row.getSize()+1;numCards < maxNumCards; numCards++){
             CardButton cardButton = new CardButton();
-            rowPanel.add(cardButton.getCardButton());
+            rowPanel.add(cardButton.getDummyCardButton());
         }
     }
     public RowPanel(MoveListener moveListener){
         rowPanel = new JPanel();
         rowPanel.setBackground(gamePanelColor);
-        AddCardButton addCardButton  = new AddCardButton(moveListener);
-        rowPanel.add(addCardButton.getAddCardButton());
+        AddCardButton addCardButton  = new AddCardButton();
+        rowPanel.add(addCardButton.getAddCardButtonDefault(moveListener));
         for (int i=1;i < maxNumCards; i++){
-            CardButton emptyCardButton  = new CardButton();
-            rowPanel.add(emptyCardButton.getCardButton());
+            CardButton cardButton  = new CardButton();
+            rowPanel.add(cardButton.getDummyCardButton());
         }
     }
     public RowPanel(){
@@ -37,7 +37,7 @@ public class RowPanel {
         rowPanel.setBackground(gamePanelColor);
         for (int i=0;i < maxNumCards; i++){
             CardButton emptyCardButton  = new CardButton();
-            rowPanel.add(emptyCardButton.getCardButton());
+            rowPanel.add(emptyCardButton.getDummyCardButton());
         }
     }
     public JPanel getRowPanel(){return rowPanel;}

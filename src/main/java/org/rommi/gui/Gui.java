@@ -28,14 +28,14 @@ public class Gui {
     }
     public void createGui(){
         this.toolbarPanel = new ToolbarPanel(gameController);
-        this.playerPanel = new PlayerPanel(gameController.getActivePlayer(),moveListener);
+        this.playerPanel = new PlayerPanel();
         this.gamePanel = new GamePanel(gameController.getPlayedRows(), moveListener);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(gamePanel.getGamePanel(), BorderLayout.NORTH);
-        frame.add(playerPanel.getPlayerPanel(), BorderLayout.CENTER);
+        frame.add(playerPanel.getPlayerPanel(gameController.getActivePlayer(), moveListener), BorderLayout.CENTER);
         frame.add(toolbarPanel.getToolbarPanel(), BorderLayout.SOUTH);
         //frame.pack();
         frame.setSize(boardWidth, boardHeight);
@@ -48,10 +48,10 @@ public class Gui {
             frame.repaint();
         }
         toolbarPanel = new ToolbarPanel(gameController);
-        playerPanel = new PlayerPanel(gameController.getActivePlayer(), moveListener);
+        playerPanel = new PlayerPanel();
         gamePanel = new GamePanel(gameController.getPlayedRows(), moveListener);
         frame.add(gamePanel.getGamePanel(), BorderLayout.NORTH);
-        frame.add(playerPanel.getPlayerPanel(), BorderLayout.CENTER);
+        frame.add(playerPanel.getPlayerPanel(gameController.getActivePlayer(), moveListener), BorderLayout.CENTER);
         frame.add(toolbarPanel.getToolbarPanel(), BorderLayout.SOUTH);
         frame.revalidate();
         frame.repaint();

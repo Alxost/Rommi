@@ -2,26 +2,21 @@ package org.rommi;
 
 import java.util.ArrayList;
 
-public class RummyGame {
+public class RommiGame {
 
-    private CardDeck cardDeck;
-    private ArrayList<Player> playerList;
-    private ArrayList<Row> playedRows;
-    private boolean gameOver;
+    private final CardDeck cardDeck;
+    private final ArrayList<Player> playerList;
+    private final ArrayList<Row> playedRows;
 
-    public RummyGame(PlayerConfig playerConfig){
+    public RommiGame(PlayerConfig playerConfig){
         playerList  = playerConfig.playerList;
         cardDeck = new CardDeck();
         playedRows = new ArrayList<>();
     }
-    public void addPlayer(Player player){
-        playerList.add(player);
-    }
     public void addRow(Row row){
         playedRows.add(row);
     }
-    public boolean gameOver(){return gameOver;
-    }
+
     public ArrayList<Player> getPlayerList(){
         return playerList;
     }

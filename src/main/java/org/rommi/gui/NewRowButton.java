@@ -15,7 +15,7 @@ public class NewRowButton {
         newRowButton.setForeground(textColorButton);
         newRowButton.setOpaque(true);
         newRowButton.setBorderPainted(false);
-        newRowButton.addActionListener(e->{gameController.createNewRow();});
+        newRowButton.addActionListener(e->gameController.createNewRow());
     }
     public JButton getNewRowButton(){
         return newRowButton;

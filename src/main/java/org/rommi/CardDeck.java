@@ -15,7 +15,6 @@ public class CardDeck {
     public CardDeck(){
         int numValues = 13;
         Color[] colors = {blackCardColor, blueCardColor, yellowCardColor, redCardColor};
-        int deckSize = colors.length * numValues * 2;
         numCardsUsed = 0;
         cards = new ArrayList<>();
         for(int i = 1; i <= numValues; i++){
@@ -28,20 +27,12 @@ public class CardDeck {
         }
         Collections.shuffle(cards);
     }
-    int numCardsLeft(){
+    public int numCardsLeft(){
         return cards.size() - numCardsUsed;
     }
 
     public Card drawCard(){
         numCardsUsed++;
-        Card drawnCard = cards.get(numCardsUsed-1);
         return cards.get(numCardsUsed-1);
-    }
-    public ArrayList<Card> drawCards(int numCards){
-        ArrayList<Card> drawnCards = new ArrayList<>();
-        for(int i=0;i<numCards;i++){
-            drawnCards.add(drawCard());
-        }
-        return drawnCards;
     }
 }

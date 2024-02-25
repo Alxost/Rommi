@@ -1,13 +1,9 @@
 package org.rommi;
 
-import org.rommi.gui.Gui;
-
 import java.util.ArrayList;
 
 public class MoveListener {
-    Move currentMove;
     ArrayList<Card> selectedCards;
-    Row sourceRow;
     Row targetRow;
     ArrayList<Move> moveHistory;
     GameController gameController;
@@ -21,20 +17,22 @@ public class MoveListener {
         selectedCards.add(card);
         gameController.updateGui();
     }
+    public void removeSelectedCard(Card card){
+        selectedCards.remove(card);
+        gameController.updateGui();
+    }
     public ArrayList<Card> getSelectedCards(){return selectedCards;}
     public void setTargetRow(Row row){
         this.targetRow = row;
     }
-    public void setSourceRow(Row row){
-        this.sourceRow = row;
-    };
+
     public void resetSelectedCards(){
         selectedCards = new ArrayList<>();
     }
-    public void makeMove(){
-        Move move = new Move(selectedCards,sourceRow,targetRow);
-        selectedCards = new ArrayList<>();
-        gameController.executeMove(move);
+    public void addCards(){
+        ArrayList<Card> cardsToAdd = selectedCards;
+        resetSelectedCards();
+        gameController.addCardToRow(cardsToAdd, targetRow);
     }
     public void createNewRow(){
         if(selectedCards.isEmpty()) {
@@ -46,6 +44,4 @@ public class MoveListener {
             gameController.createNewRow(cardsToAdd);
         }
     }
-
-
 }

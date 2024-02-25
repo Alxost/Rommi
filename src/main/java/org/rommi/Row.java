@@ -22,10 +22,6 @@ public class Row {
         this.isHand = isHand;
         rowSum = 0;
     }
-
-    public Card getCardByIndex(int index){
-        return rowContent.get(index);
-    }
     public ArrayList<Card> getRowContent(){
         return rowContent;
     }
@@ -36,13 +32,7 @@ public class Row {
         rowSum += card.getValue();
         Collections.sort(rowContent);
     }
-    public void addCards(ArrayList<Card> cards){
-        rowContent.addAll(cards);
-        for (Card card: cards){
-            rowSum += card.getValue();
-        }
-        Collections.sort(rowContent);
-    }
+
     public int getSize(){return rowContent.size();}
     public int getRowSum(){return rowSum;}
     @Override

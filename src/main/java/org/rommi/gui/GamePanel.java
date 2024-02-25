@@ -1,6 +1,5 @@
 package org.rommi.gui;
 
-import org.rommi.GameController;
 import org.rommi.MoveListener;
 import org.rommi.Row;
 

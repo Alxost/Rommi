@@ -1,9 +1,6 @@
 package org.rommi;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Map;
 
 
@@ -42,15 +39,11 @@ public class Card implements Comparable<Card>{
     public void setOwner(Row row){owner = row;}
     @Override
     public int compareTo(Card otherCard) {
-        //return getValue().compareTo(otherCard.getValue());
         return Integer.compare(getValue(), otherCard.getValue());
     }
     @Override
     public String toString(){
         return value + " " + colorMap.get(color);
     }
-    void display() {
-        System.out.println("Number: " + value);
-        System.out.println("Color: " + color);
-    }
+
 }

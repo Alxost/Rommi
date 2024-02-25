@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class RommiRobot {
     GameController gameController;
-    RummyGame rummyGame;
+    RommiGame rommiGame;
     RuleChecker ruleChecker;
 
     boolean out;
 
-    RommiRobot(GameController gameController, RummyGame rummyGame){
+    RommiRobot(GameController gameController, RommiGame rommiGame){
         this.gameController = gameController;
-        this.rummyGame = rummyGame;
+        this.rommiGame = rommiGame;
         this.out = false;
         this.ruleChecker = new RuleChecker();
     }
@@ -59,7 +59,7 @@ public class RommiRobot {
         if (subset.size() >= 3) {
             Row row = new Row(subset, false);
             //System.out.println(row);
-            if(ruleChecker.validateRow(row)){
+            if(ruleChecker.validateRow(row, true)){
                 result.add(row);
             }
         }

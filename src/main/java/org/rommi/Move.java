@@ -13,15 +13,6 @@ public class Move {
         this.targetRow = targetRow;
         this.cards  = cards;
     }
-
-    public Row getSourceRow() {
-        return sourceRow;
-    }
-
-    public Row getTargetRow() {
-        return targetRow;
-    }
-
     public ArrayList<Card> getCards() {
         return cards;
     }

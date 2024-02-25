@@ -1,6 +1,5 @@
 package org.rommi;
 
-import java.util.ArrayList;
 
 public class Player {
     private final String name;
@@ -24,7 +23,4 @@ public class Player {
         hand.addCard(card);
     }
     public boolean getIsBot(){return isBot;}
-    public void addCards(ArrayList<Card> cards){
-        hand.addCards(cards);
-    }
 }
